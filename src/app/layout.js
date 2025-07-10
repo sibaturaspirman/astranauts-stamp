@@ -23,9 +23,9 @@ export default function RootLayout({ children }) {
           
           {children}
 
-          <div className="fixed bottom-0 w-full max-w-sm flex flex-col items-center pointer-events-none">
+          <a href="https://zirolu.id/" target="_blank" className="block fixed bottom-0 w-full max-w-sm flex flex-col items-center pointer-events-nonex">
             <img src="/images/powered.png" alt="Astra Logo" className="w-[80%]" />
-          </div>
+          </a>
         </main>
       </body>
     </html>

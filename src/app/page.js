@@ -37,7 +37,7 @@ export default function LoginPage() {
       alert('Login gagal!')
     }
 
-    setResult(data);
+    // setResult(data);
     setLoading(false);
   };
 
@@ -123,7 +123,7 @@ export default function LoginPage() {
           </form>
         )}
 
-        {result && <pre className="mt-4 text-xs text-gray-500">{JSON.stringify(result, null, 2)}</pre>}
+        {/* {result && <pre className="mt-4 text-xs text-gray-500">{JSON.stringify(result, null, 2)}</pre>} */}
 
       </div>
 

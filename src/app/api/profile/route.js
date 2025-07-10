@@ -6,7 +6,7 @@ export async function GET() {
     return Response.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/booth`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_PUBLIC_API}/auth/profile`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'x-app-id': process.env.API_APP_ID,

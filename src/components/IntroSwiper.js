@@ -59,8 +59,8 @@ export default function IntroSwiper({ hidden, onFinished }) {
             >
             {slides.map((slide, index) => (
                 <SwiperSlide key={index}>
-                <div className="flex flex-col items-center justify-center px-6">
-                    <div className="w-full rounded-tl-4xl rounded-br-4xl p-5 bg-linear-to-t from-[#CAD8FF] to-[#ffffff] text-center border border-white/80 ">
+                <div className="w-full flex flex-col items-center justify-center px-6">
+                    <div className="w-full rounded-tl-4xl rounded-br-4xl p-5 bg-linear-to-t from-[#CAD8FF] to-[#ffffff] text-center border border-white/80">
                     <img
                         src={slide.icon}
                         alt={slide.title}
