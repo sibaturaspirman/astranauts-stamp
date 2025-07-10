@@ -171,7 +171,13 @@ export default function CameraModal({ isOpen, onClose, onCapture }) {
       ) : (
         <>
             <div className="relative w-[90%] max-w-md aspect-[284/224] mx-auto z-20">
-                <img src={capturedPhoto} className="w-full rounded-lg aspect-[284/224]" />
+                <Image
+                  src={capturedPhoto}
+                  alt="astra"
+                  className="w-full rounded-lg aspect-[284/224]"
+                  width={284}
+                  height={224}
+                />
             </div>
             <div className="flex gap-4 mt-4">
                 <button
