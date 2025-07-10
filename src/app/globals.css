@@ -32,3 +32,24 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.mySwiper .swiper-pagination{
+  position: relative;
+  margin-top: .5rem; 
+}
+
+.introSwiper .swiper-pagination{
+  position: relative;
+  margin-top: 1rem; 
+}
+
+.introSwiper .swiper-pagination-bullet{
+  width: 16px !important;
+  height: 4px !important;
+  border-radius: 1px !important;
+  background: #ffffff !important;
+}
+
+.introSwiper .swiper-pagination-bullet-active{
+  background-color: #165DFB !important;
+}

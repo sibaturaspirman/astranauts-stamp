@@ -16,9 +16,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.variable} antialiased`}>
-        <main className="min-h-screen bg-custom flex flex-col items-center justify-centerx">
+        <main className="min-h-screen max-w-md mx-auto bg-custom flex flex-col items-center justify-centerx">
           <div className="w-full max-w-sm flex flex-col items-center mt-5 mb-5 pointer-events-none">
-            <img src="/images/logo.png" alt="Astra Logo" className="w-[90%]" />
+            <img src="/images/logo.png" alt="Astra Logo" className="w-[70%]" />
           </div>
           
           {children}
