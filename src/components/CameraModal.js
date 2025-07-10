@@ -1,6 +1,7 @@
 // src/components/CameraModal.js
 'use client'
 
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react'
 
 export default function CameraModal({ isOpen, onClose, onCapture }) {
@@ -140,7 +141,13 @@ export default function CameraModal({ isOpen, onClose, onCapture }) {
                 <button
                 className="bg-blue-600 text-white p-3 rounded-full flex items-center justify-center"
                 >
-                <img src="/images/switch.png" className="h-[24px]" alt="?" />
+                  <Image
+                    src="/images/switch.png"
+                    alt="astra"
+                    className="h-[24px]"
+                    width={24}
+                    height={24}
+                  />
                 </button>
             </div>
           </div>
@@ -150,7 +157,13 @@ export default function CameraModal({ isOpen, onClose, onCapture }) {
               onClick={handleCapture}
               className="bg-blue-600 text-white font-bold px-9 py-3 rounded-tl-3xl rounded-br-3xl flex items-center justify-center"
             >
-                <img src="/images/camera.png" className="h-[20px] mr-2" alt="?" />
+                <Image
+                  src="/images/camera.png"
+                  alt="astra"
+                  className="h-[20px] mr-2"
+                  width={20}
+                  height={20}
+                />
                 Capture
             </button>
           </div>
@@ -165,14 +178,26 @@ export default function CameraModal({ isOpen, onClose, onCapture }) {
                 onClick={handleRetake}
                 className="bg-gray-400 text-white font-bold px-6 py-2 rounded-tl-3xl rounded-br-3xl flex items-center justify-center"
                 >
-                    <img src="/images/retake.png" className="h-[20px] mr-2" alt="?" />
-                    Retake
+                  <Image
+                    src="/images/retake.png"
+                    alt="astra"
+                    className="h-[20px] mr-2"
+                    width={20}
+                    height={20}
+                  />
+                  Retake
                 </button>
                 <button
                 onClick={handleSave}
                 className="bg-blue-600 text-white font-bold px-6 py-2 rounded-tl-3xl rounded-br-3xl flex items-center justify-center"
                 >
-                    <img src="/images/save.png" className="h-[20px] mr-2" alt="?" />
+                  <Image
+                    src="/images/save.png"
+                    alt="astra"
+                    className="h-[20px] mr-2"
+                    width={20}
+                    height={20}
+                  />
                     Simpan
                 </button>
             </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef  } from "react";
 import { useRouter } from 'next/navigation'
+import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter()
@@ -128,11 +129,13 @@ export default function LoginPage() {
       </div>
 
       <div className="w-full flex justify-center items-center overflow-hidden">
-        <img
+        <Image
           ref={imgRef}
           src="/images/preview.png" // ganti dengan path sesuai
           alt="Booth"
           className="w-[550px] max-w-[550px]"
+          width={550}
+          height={550}
         />
       </div>
     </main>

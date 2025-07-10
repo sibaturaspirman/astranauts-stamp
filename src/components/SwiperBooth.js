@@ -1,4 +1,6 @@
 'use client'
+
+import Image from 'next/image';
 import { useState } from 'react'
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -267,16 +269,24 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
               <div className="rounded-tl-4xl rounded-br-4xl p-6 pb-2 bg-linear-to-t from-[#CAD8FF] to-[#ffffff] text-center border border-white/50 shadow-xl mx-3 relative">
                 {imageUrl ? (
                   <div className='relative w-full border-[1px] border-dashed border-[#C8C8C8] rounded-tl-xl rounded-br-xl'>
-                    <img
-                      src={imageUrl}
-                      alt={booth.name}
-                      className="aspect-[284/224] w-full object-cover rounded-tl-xl rounded-br-xl"
+                    <Image
+                        src={imageUrl}
+                        alt={booth.name}
+                        className="aspect-[284/224] w-full object-cover rounded-tl-xl rounded-br-xl"
+                        width={284}
+                        height={224}
                     />
                   </div>
                 ) : (
                   <div className='aspect-[284/224] flex items-center justify-center flex-col bg-[#F1F4F9] border-[1px] border-dashed border-[#C8C8C8] rounded-tl-xl rounded-br-xl' onClick={() => setShowCamera(true)}>
                     <div>
-                      <img src="/images/selfie.png" className="h-[64px]" alt="?" />
+                        <Image
+                            src="/images/selfie.png"
+                            alt="astra"
+                            className="h-[64px]"
+                            width={64}
+                            height={64}
+                        />
                     </div>
                     <p className='font-medium text-sm mt-2 mb-2'>Ambil Foto Kegiatanmu</p>
                     <button className="bg-blue-600 text-white px-6 py-2 rounded-tl-2xl rounded-br-2xl text-sm font-semibold">FOTO</button>
@@ -288,10 +298,12 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
                     <div className='absolute top-0 right-0 w-full h-full z-50'>
                         {stampedAt ? (
                             <div className='absolute top-0 right-0 w-full h-full'>
-                                <img
+                                <Image
                                     src="/images/stamp-check.png"
+                                    alt="astra"
                                     className="absolute bottom-[-3rem] right-[0rem] w-[120px]"
-                                    alt="stamp now"
+                                    width={120}
+                                    height={120}
                                 />
                             </div>
                         ) : (
@@ -310,10 +322,12 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
                                 >
                                     STAMP SEKARANG
                                 </button>
-                                <img
+                                <Image
                                     src="/images/stamp-here.png"
+                                    alt="astra"
                                     className="absolute bottom-[-3rem] right-[0rem] w-[120px]"
-                                    alt="stamp now"
+                                    width={120}
+                                    height={120}
                                 />
                             </div>
                         )}
@@ -345,10 +359,22 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
 
             <div className="flex items-center justify-between text-xs text-gray-600 w-full">
                 <div className="flex items-center" onClick={onQuestion}>
-                    <img src="/images/q.png" className="h-[36px]" alt="?" />
+                    <Image
+                        src="/images/q.png"
+                        alt="astra"
+                        className="h-[36px]"
+                        width={60}
+                        height={60}
+                    />
                 </div>
                 <div className="font-medium text-sm rounded-tl-xl rounded-br-xl p-2 px-4 bg-linear-to-t from-[#CAD8FF]/50 to-[#ffffff] text-center border border-white/80 flex items-center gap-1">
-                    <img src="/images/coin.png" className="h-[20px] mr-1" alt="coin" />
+                    <Image
+                        src="/images/coin.png"
+                        alt="astra"
+                        className="h-[20px] mr-1"
+                        width={20}
+                        height={20}
+                    />
                     <span>{profileData?.coins ?? 0} Coins</span>
                 </div>
                 <div className='min-w-[62px] font-medium text-sm rounded-tl-xl rounded-br-xl p-2 px-3 bg-linear-to-t from-[#CAD8FF]/50 to-[#ffffff] text-center border border-white/80'>

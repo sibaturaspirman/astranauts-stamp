@@ -1,6 +1,7 @@
 // src/components/IntroSwiper.js
 'use client'
 
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
@@ -61,10 +62,12 @@ export default function IntroSwiper({ hidden, onFinished }) {
                 <SwiperSlide key={index}>
                 <div className="w-full flex flex-col items-center justify-center px-6">
                     <div className="w-full rounded-tl-4xl rounded-br-4xl p-5 bg-linear-to-t from-[#CAD8FF] to-[#ffffff] text-center border border-white/80">
-                    <img
+                    <Image
                         src={slide.icon}
                         alt={slide.title}
                         className="w-[70%] mx-auto"
+                        width={280}
+                        height={146}
                     />
                     <h2 className="text-lg font-bold mb-1">{slide.title}</h2>
                     <p className="text-sm text-gray-700 mb-6">{slide.desc}</p>

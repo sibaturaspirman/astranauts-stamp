@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Poppins } from "next/font/google";
 import "./globals.css";
 
@@ -18,13 +19,25 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.variable} antialiased`}>
         <main className="min-h-screen max-w-md mx-auto bg-custom flex flex-col items-center justify-centerx">
           <div className="w-full max-w-sm flex flex-col items-center mt-5 mb-5 pointer-events-none">
-            <img src="/images/logo.png" alt="Astra Logo" className="w-[70%]" />
+            <Image
+              src="/images/logo.png"
+              alt="astra"
+              className="w-[70%]"
+              width={343}
+              height={40}
+            />
           </div>
           
           {children}
 
           <a href="https://zirolu.id/" target="_blank" className="block fixed bottom-0 w-full max-w-sm flex flex-col items-center pointer-events-nonex">
-            <img src="/images/powered.png" alt="Astra Logo" className="w-[80%]" />
+            <Image
+              src="/images/powered.png"
+              alt="astra"
+              className="w-[80%]"
+              width={276}
+              height={36}
+            />
           </a>
         </main>
       </body>
