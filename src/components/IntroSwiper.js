@@ -40,12 +40,17 @@ const slides = [
   },
 ]
 
-export default function IntroSwiper() {
+export default function IntroSwiper({ hidden, onFinished }) {
     const swiperRef = useRef(null)
-    const [hideIntro, setHideIntro] = useState(false);
+
+    useEffect(() => {
+        if (!hidden) {
+            swiperRef.current?.slideTo(0)
+        }
+    }, [hidden])
 
     return (
-        <div className={`fixed w-full h-full top-0 left-0 bg-black/80 z-50 flex items-center justify-center transition ${hideIntro ? 'opacity-0 pointer-events-none' : ''}`}>
+        <div className={`fixed w-full h-full top-0 left-0 bg-black/80 z-50 flex items-center justify-center transition ${hidden ? 'opacity-0 pointer-events-none' : ''}`}>
             <Swiper
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             pagination={{ clickable: true }}
@@ -66,10 +71,10 @@ export default function IntroSwiper() {
                     <button
                         className="w-full bg-blue-600 text-white rounded-tl-4xl rounded-br-4xl py-3 font-semibold"
                         onClick={() => {
-                            if (index === slides.length - 1) {
-                                setHideIntro(true)
+                            if (index === slides.length - 1 && onFinished) {
+                                onFinished()
                             } else {
-                              swiperRef.current?.slideNext()
+                                swiperRef.current?.slideNext()
                             }
                         }}
                     >

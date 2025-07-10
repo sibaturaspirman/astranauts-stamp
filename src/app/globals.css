@@ -38,6 +38,18 @@ body {
   margin-top: 1rem; 
 }
 
+.mySwiper .swiper-pagination-bullet{
+  width: 10px !important;
+  height: 3px !important;
+  margin: 0 3px !important;
+  border-radius: 1px !important;
+  /* background: #ffffff !important; */
+}
+
+.mySwiper .swiper-pagination-bullet-active{
+  background-color: #165DFB !important;
+}
+
 .introSwiper .swiper-pagination{
   position: relative;
   margin-top: 1rem; 
