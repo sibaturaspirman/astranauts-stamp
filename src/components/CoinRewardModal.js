@@ -12,7 +12,7 @@ export default function CoinRewardModal({ isOpen, onClose, reward }) {
                 <Image
                   src="/images/coin.png"
                   alt="astra"
-                  className="mx-auto h-12 mb-4"
+                  className="mx-auto w-12 h-12 mb-4"
                   width={80}
                   height={80}
                 />

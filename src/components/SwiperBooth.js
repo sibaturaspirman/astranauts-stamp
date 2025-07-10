@@ -347,24 +347,24 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
           </div>
         </SwiperSlide>
       </Swiper>
-        <div className="w-full flex flex-col items-center gap-1 mt-1">
+        <div className="w-full flex flex-col items-center gap-0 mt-0">
             {profileData?.coins >= 1 && (
                 <Link
                     href="/prize"
-                    className="bg-blue-600 text-white text-sm font-bold px-6 py-3 mb-2 rounded-tl-2xl rounded-br-2xl shadow text-center"
+                    className="bg-blue-600 text-white text-sm font-bold px-6 py-3 mt-2 mb-[-1] rounded-tl-2xl rounded-br-2xl shadow text-center"
                 >
                     Dapatkan Hadiah di Claw Machine!
                 </Link>
             )}
 
-            <div className="flex items-center justify-between text-xs text-gray-600 w-full">
+            <div className="flex items-center justify-between text-xs text-gray-600 w-full mt-3">
                 <div className="flex items-center" onClick={onQuestion}>
                     <Image
                         src="/images/q.png"
                         alt="astra"
-                        className="h-[36px]"
-                        width={60}
-                        height={60}
+                        className="h-[36px] h-[36px]"
+                        width={36}
+                        height={36}
                     />
                 </div>
                 <div className="font-medium text-sm rounded-tl-xl rounded-br-xl p-2 px-4 bg-linear-to-t from-[#CAD8FF]/50 to-[#ffffff] text-center border border-white/80 flex items-center gap-1">
