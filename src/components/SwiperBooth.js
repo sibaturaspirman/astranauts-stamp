@@ -20,6 +20,8 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
     const [lastCoin, setLastCoin] = useState(profile?.coins || 0)
     const [coinGain, setCoinGain] = useState(0)
 
+    // console.log(profileData)
+
     const handleSavePhoto = async (photoDataUrl) => {
         const res = await fetch(photoDataUrl)
         const blob = await res.blob()
@@ -214,6 +216,8 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
             setProfileData(updatedProfile)
             setLastCoin(updatedProfile.coins)
             setStampStatus('success')
+
+            // console.log(profileData)
 
             setTimeout(() => {
                 setStampStatus(null)
@@ -419,6 +423,8 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
                     Dapatkan Hadiah di Claw Machine!
                 </Link>
             )}
+
+            {/* {profileData?.isSh} */}
 
             <div className="flex items-center justify-between text-xs text-gray-600 w-full mt-3">
                 <div className="flex items-center" onClick={onQuestion}>
