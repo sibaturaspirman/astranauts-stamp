@@ -132,7 +132,7 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
         points.sort((a, b) => a.x - b.x || a.y - b.y);
         const [topLeft, topRight] = points;
 
-        const thresholdXDistMin = 130;
+        const thresholdXDistMin = 121;
         const thresholdXDistMax = 155;
         const thresholdYDistMin = 85;
         const thresholdYDistMax = 110;
