@@ -223,7 +223,7 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
         } else {
             // alert('Stamp GAGAL!')
             console.log("Stamp GAGAL!")
-            setStampStatus(null)
+            // setStampStatus(null)
         }
       };
     
