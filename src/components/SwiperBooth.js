@@ -73,24 +73,50 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
         contextRef.current = context;
       }, []);
 
-      const drawTouches = (ctx, canvas, touchPoints) => {
+      const drawTouches = (ctx, canvas) => {
+        // if (!ctx || !canvas) return;
+      
+        // // Bersihkan canvas sebelum menggambar ulang
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+        // touchPoints.forEach((t) => {
+        // //   Gambar lingkaran titik
+        //   ctx.beginPath();
+        //   ctx.arc(t.x, t.y, 20, 0, Math.PI * 2);
+        //   ctx.fillStyle = 'blue';
+        //   ctx.fill();
+      
+        // //   Tampilkan koordinat X/Y
+        // //   ctx.font = '10px Arial';
+        // //   ctx.fillStyle = 'black';
+        // //   ctx.fillText(`X: ${Math.round(t.x)} | Y: ${Math.round(t.y)}`, t.x - 30, t.y + 30);
+        // });
         if (!ctx || !canvas) return;
-      
-        // Bersihkan canvas sebelum menggambar ulang
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-        touchPoints.forEach((t) => {
-        //   Gambar lingkaran titik
-          ctx.beginPath();
-          ctx.arc(t.x, t.y, 20, 0, Math.PI * 2);
-          ctx.fillStyle = 'blue';
-          ctx.fill();
-      
-        //   Tampilkan koordinat X/Y
-        //   ctx.font = '10px Arial';
-        //   ctx.fillStyle = 'black';
-        //   ctx.fillText(`X: ${Math.round(t.x)} | Y: ${Math.round(t.y)}`, t.x - 30, t.y + 30);
-        });
+
+        const cols = 4;
+        const rows = 6;
+        const paddingX = 60; // jarak horizontal dari sisi kiri/kanan
+        const paddingY = 60; // jarak vertikal dari sisi atas/bawah
+        const radius = 20;
+
+        const gridWidth = canvas.width - paddingX * 2;
+        const gridHeight = canvas.height - paddingY * 2;
+        const cellWidth = gridWidth / (cols - 1);
+        const cellHeight = gridHeight / (rows - 1);
+
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+            const x = paddingX + col * cellWidth;
+            const y = paddingY + row * cellHeight;
+
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'blue';
+            ctx.fill();
+            }
+        }
       };
     
       const handleTouchStart = (e) => {
@@ -110,7 +136,7 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
       
         // Gambar titik-titik baru
         // const points = Object.values(sentuhanRef.current);
-        // drawTouches(ctx, canvas, points);
+        drawTouches(ctx, canvas);
       };
     
       const handleTouchMove = (e) => {
@@ -124,6 +150,7 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
         }));
       
         // drawTouches(ctx, canvas, touches);
+        drawTouches(ctx, canvas);
       };
     
       const checkSquarePattern = (points) => {
@@ -202,6 +229,13 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
     
       const handleTouchEnd = async (e) => {
         const points = Object.values(sentuhanRef.current);
+
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext('2d');
+        if (!ctx || !canvas) return;
+
+        // Bersihkan canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Debug: log dulu untuk memastikan isi points
         // console.log("Sentuhan points", points);
