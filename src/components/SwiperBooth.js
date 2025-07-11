@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
@@ -35,9 +35,9 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
         const data = await resapi.json();
 
         if (resapi.ok) {
-            console.log(data)
+            // console.log(data)
         } else {
-        alert('Upload gagal!')
+            alert('Upload gagal!')
         }
 
         const updatedImages = [...boothImages]
@@ -52,162 +52,168 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
     const [stamping, setStamping] = useState(false)
     const [stampStatus, setStampStatus] = useState(null) // null | 'loading' | 'success'
 
-    // const [topLeftX, setTopLeftX] = useState(0);
-    // const [topLeftY, setTopLeftY] = useState(0);
-    // const [topRightX, setTopRightX] = useState(0);
-    // const [topRightY, setTopRightY] = useState(0);
-    // const [xPos, setXPos] = useState(0);
-    // const [yPos, setYPos] = useState(0);
+    const [topLeftX, setTopLeftX] = useState(0);
+    const [topLeftY, setTopLeftY] = useState(0);
+    const [topRightX, setTopRightX] = useState(0);
+    const [topRightY, setTopRightY] = useState(0);
+    const [xPos, setXPos] = useState(0);
+    const [yPos, setYPos] = useState(0);
 
     // // REFACTOR CANVAS
-    // const canvasRef = useRef(null);
-    // const contextRef = useRef(null);
-    // const sentuhanRef = useRef({});
-    // const [errorObject, setErrorObject] = useState(null);
+    const canvasRef = useRef(null);
+    const contextRef = useRef(null);
+    const sentuhanRef = useRef({});
+    const [errorObject, setErrorObject] = useState(null);
 
-    // useEffect(() => {
-    //     const canvas = canvasRef.current;
-    //     const context = canvas.getContext('2d');
-    //     canvas.width = window.innerWidth;
-    //     canvas.height = window.innerHeight;
-    //     contextRef.current = context;
-    //   }, []);
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        contextRef.current = context;
+      }, []);
 
-    //   const drawTouches = (ctx, canvas, touchPoints) => {
-    //     if (!ctx || !canvas) return;
+      const drawTouches = (ctx, canvas, touchPoints) => {
+        if (!ctx || !canvas) return;
       
-    //     // Bersihkan canvas sebelum menggambar ulang
-    //     ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Bersihkan canvas sebelum menggambar ulang
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-    //     touchPoints.forEach((t) => {
-    //       // Gambar lingkaran titik
-    //       ctx.beginPath();
-    //       ctx.arc(t.x, t.y, 20, 0, Math.PI * 2);
-    //       ctx.fillStyle = 'blue';
-    //       ctx.fill();
+        touchPoints.forEach((t) => {
+        //   Gambar lingkaran titik
+          ctx.beginPath();
+          ctx.arc(t.x, t.y, 20, 0, Math.PI * 2);
+          ctx.fillStyle = 'blue';
+          ctx.fill();
       
-    //       // Tampilkan koordinat X/Y
-    //       ctx.font = '10px Arial';
-    //       ctx.fillStyle = 'black';
-    //       ctx.fillText(`X: ${Math.round(t.x)} | Y: ${Math.round(t.y)}`, t.x - 30, t.y + 30);
-    //     });
-    //   };
+        //   Tampilkan koordinat X/Y
+        //   ctx.font = '10px Arial';
+        //   ctx.fillStyle = 'black';
+        //   ctx.fillText(`X: ${Math.round(t.x)} | Y: ${Math.round(t.y)}`, t.x - 30, t.y + 30);
+        });
+      };
     
-    //   const handleTouchStart = (e) => {
-    //     const canvas = canvasRef.current;
-    //     const ctx = contextRef.current;
-    //     const rect = canvas.getBoundingClientRect();
+      const handleTouchStart = (e) => {
+        const canvas = canvasRef.current;
+        const ctx = contextRef.current;
+        const rect = canvas.getBoundingClientRect();
       
-    //     sentuhanRef.current = {}; // reset data sentuhan
+        sentuhanRef.current = {}; // reset data sentuhan
       
-    //     // Simpan titik-titik baru
-    //     for (let i = 0; i < e.touches.length; i++) {
-    //       const touch = e.touches[i];
-    //       const x = touch.clientX - rect.left;
-    //       const y = touch.clientY - rect.top;
-    //       sentuhanRef.current[touch.identifier] = { x, y };
-    //     }
+        // Simpan titik-titik baru
+        for (let i = 0; i < e.touches.length; i++) {
+          const touch = e.touches[i];
+          const x = touch.clientX - rect.left;
+          const y = touch.clientY - rect.top;
+          sentuhanRef.current[touch.identifier] = { x, y };
+        }
       
-    //     // Gambar titik-titik baru
-    //     // const points = Object.values(sentuhanRef.current);
-    //     // drawTouches(ctx, canvas, points);
-    //   };
+        // Gambar titik-titik baru
+        // const points = Object.values(sentuhanRef.current);
+        // drawTouches(ctx, canvas, points);
+      };
     
-    //   const handleTouchMove = (e) => {
-    //     const canvas = canvasRef.current;
-    //     const ctx = contextRef.current;
-    //     const rect = canvas.getBoundingClientRect();
+      const handleTouchMove = (e) => {
+        const canvas = canvasRef.current;
+        const ctx = contextRef.current;
+        const rect = canvas.getBoundingClientRect();
       
-    //     const touches = Array.from(e.touches).map((t) => ({
-    //       x: t.clientX - rect.left,
-    //       y: t.clientY - rect.top,
-    //     }));
+        const touches = Array.from(e.touches).map((t) => ({
+          x: t.clientX - rect.left,
+          y: t.clientY - rect.top,
+        }));
       
-    //     // drawTouches(ctx, canvas, touches);
-    //   };
+        // drawTouches(ctx, canvas, touches);
+      };
     
-    //   const checkSquarePattern = (points) => {
-    //     if (points.length !== 2) return false;
+      const checkSquarePattern = (points) => {
+        if (points.length !== 2) return false;
 
-    //     points.sort((a, b) => a.x - b.x || a.y - b.y);
-    //     const [topLeft, topRight] = points;
+        points.sort((a, b) => a.x - b.x || a.y - b.y);
+        const [topLeft, topRight] = points;
 
-    //     const thresholdXDistMin = 130;
-    //     const thresholdXDistMax = 150;
-    //     const thresholdYDistMin = 80;
-    //     const thresholdYDistMax = 105;
+        const thresholdXDistMin = 130;
+        const thresholdXDistMax = 150;
+        const thresholdYDistMin = 80;
+        const thresholdYDistMax = 105;
 
-    //     setTopLeftX(Math.round(topLeft.x))
-    //     setTopLeftY(Math.round(topLeft.y))
-    //     if(topRight != undefined){
-    //         setTopRightX(Math.round(topRight.x))
-    //         setTopRightY(Math.round(topRight.y))
+        setTopLeftX(Math.round(topLeft.x))
+        setTopLeftY(Math.round(topLeft.y))
+        if(topRight != undefined){
+            setTopRightX(Math.round(topRight.x))
+            setTopRightY(Math.round(topRight.y))
 
-    //         setXPos(Math.round(topRight.x - topLeft.x))
-    //         setYPos(Math.round(topLeft.y - topRight.y))
-    //     }
+            setXPos(Math.round(topRight.x - topLeft.x))
+            setYPos(Math.round(topLeft.y - topRight.y))
+        }
 
-    //     const isXPosMin = Math.round(topRight.x - topLeft.x) >= thresholdXDistMin;
-    //     const isXPosMax = Math.round(topRight.x - topLeft.x) <= thresholdXDistMax;
-    //     const isYPosMin = Math.round(topLeft.y - topRight.y) >= thresholdYDistMin;
-    //     const isYPosMax = Math.round(topLeft.y - topRight.y) <= thresholdYDistMax;
-    //     const isXRightMoreLeft = topRight.x > topLeft.x;
-    //     const isYLeftMoreRight = topLeft.y > topRight.y;
+        const isXPosMin = Math.round(topRight.x - topLeft.x) >= thresholdXDistMin;
+        const isXPosMax = Math.round(topRight.x - topLeft.x) <= thresholdXDistMax;
+        const isYPosMin = Math.round(topLeft.y - topRight.y) >= thresholdYDistMin;
+        const isYPosMax = Math.round(topLeft.y - topRight.y) <= thresholdYDistMax;
+        const isXRightMoreLeft = topRight.x > topLeft.x;
+        const isYLeftMoreRight = topLeft.y > topRight.y;
 
-    //     return isXPosMin && isXPosMax && isYPosMin && isYPosMax && isXRightMoreLeft && isYLeftMoreRight;
-    //   };
+        return isXPosMin && isXPosMax && isYPosMin && isYPosMax && isXRightMoreLeft && isYLeftMoreRight;
+        // return true
+      };
     
-    // //   const handleStamp = async () => {
-    // //     setLoadingStamp(true);
-    // //     const token = localStorage.getItem('tokenDataGSE');
+      const handleStamp = async () => {
+        // alert(boothData[activeIndex].id)
+        // console.log(boothData[activeIndex].id)
+        let boothId = boothData[activeIndex].id
+        setStamping(true)
+        setStampStatus('loading')
+        const res = await fetch(`/api/stamp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ boothId }),
+        })
+
+        if (res.ok) {
+            const allRes = await fetch('/api/booth')
+            const allBooths = await allRes.json()
+            setBoothData(allBooths)
+
+            const profileRes = await fetch('/api/profile')
+            const updatedProfile = await profileRes.json()
+
+            const diff = updatedProfile.coins - lastCoin
+            if (diff > 0) {
+                setCoinGain(diff)
+                setShowReward(true)
+            }
+
+            setProfileData(updatedProfile)
+            setLastCoin(updatedProfile.coins)
+            setStampStatus('success')
+
+            setTimeout(() => {
+                setStampStatus(null)
+                setConfirmStamp(false)
+            }, 3000)
+            setStamping(false)
+        } else {
+            // alert('Stamp GAGAL!')
+            console.log("Stamp GAGAL!")
+            setStampStatus(null)
+        }
+      };
     
-    // //     try {
-    // //       const response = await postStamp(boothID, token);
-    // //       lokasi[lokasiID].stamp = true;
-    // //       setStatusStamp(true);
+      const handleTouchEnd = async (e) => {
+        const points = Object.values(sentuhanRef.current);
 
-    // //       if(lokasi[0].stamp && lokasi[1].stamp && lokasi[2].stamp && lokasi[3].stamp){
-    // //         setClaimHadiah(true)
-    // //       }
+        // Debug: log dulu untuk memastikan isi points
+        // console.log("Sentuhan points", points);
 
-    // //     } catch (error) {
-    // //       setErrorObject(error);
-    // //     } finally {
-    // //       setLoadingStamp(false);
-    // //       sentuhanRef.current = [];
-    // //     }
-    // //   };
-    
-    //   const handleTouchEnd = async (e) => {
-    //     const points = Object.values(sentuhanRef.current);
-
-    //     // Debug: log dulu untuk memastikan isi points
-    //     // console.log("Sentuhan points", points);
-
-    //     const isMatch = checkSquarePattern(points);
-    //     if (isMatch) {
-    //         await handleStamp();
-    //     }
-    //   };
+        const isMatch = checkSquarePattern(points);
+        if (isMatch) {
+            await handleStamp();
+        }
+      };
     // // !REFACTOR CANVAS
 
-    // const mulaiStamp = (idBooth, idLokasi) => {
-    //     setBoothID(idBooth)
-    //     setLokasiID(idLokasi)
-    //     // alert(idBooth)
-    //     setCapturedAwal(true)
-    // }
-
-    // const backStamp = () => {
-    //     setBoothID(null)
-    //     setLokasiID(null)
-    //     setCapturedAwal(false)
-    //     setStatusStamp(false)
-    //     setLoadingStamp(false);
-    // }
-    //STAMP
-
-    const handleStamp = async (boothId) => {
+    const handleStampTAP = async (boothId) => {
         setStamping(true)
         setStampStatus('loading')
         const res = await fetch(`/api/stamp`, {
@@ -259,9 +265,9 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
         {boothData.map((booth, index) => {
         //   const hasImage = boothImages[index] || booth.memberStamps?.[0]?.imageUrl
             const imageUrl = boothImages[index] || booth.memberStamps?.[0]?.imageUrl
-          const stampedAt = booth.memberStamps?.[0]?.stampedAt
+            const stampedAt = booth.memberStamps?.[0]?.stampedAt
 
-          console.log('📦 booth:', booth.id, booth.memberStamps?.[0]?.stampedAt)
+        //   console.log('📦 booth:', booth.id, booth.memberStamps?.[0]?.stampedAt)
 
 
           return (
@@ -315,13 +321,16 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
                                 >
                                     {stamping ? 'Memproses...' : 'STAMP SEKARANG'}
                                 </button> */}
-                                <button
+                                {/* <button
                                     disabled={stamping}
                                     onClick={() => setConfirmStamp(true)}
                                     className="mt-2 bg-green-600 text-white px-4 py-2 text-sm rounded-full"
                                 >
                                     STAMP SEKARANG
-                                </button>
+                                </button> */}
+                                <button
+                                    disabled={stamping}
+                                    onClick={() => setConfirmStamp(true)} className="bg-blue-600 text-white px-3 py-2 rounded-tl-2xl rounded-br-2xl text-sm font-semibold mt-3">TAP UNTUK STAMP</button>
                                 <Image
                                     src="/images/stamp-here.png"
                                     alt="astra"
@@ -342,8 +351,28 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
           )
         })}
         <SwiperSlide key={11}>
-          <div className="rounded-3xl bg-white shadow-md overflow-hidden">
-            <div className="text-center font-medium py-3">SHARE SOSMED</div>
+          <div className="rounded-tl-4xl rounded-br-4xl p-6 pb-2 bg-linear-to-t from-[#CAD8FF] to-[#ffffff] text-center border border-white/50 shadow-xl mx-3 relative">
+            <div className='absolute top-0 right-0 w-full h-full'>
+                <button
+                    disabled={stamping}
+                    onClick={() => setConfirmStamp(true)} className="bg-blue-600 text-white px-3 py-2 rounded-tl-2xl rounded-br-2xl text-sm font-semibold mt-3">TAP UNTUK STAMP</button>
+                <Image
+                    src="/images/stamp-here.png"
+                    alt="astra"
+                    className="absolute bottom-[-3rem] right-[0rem] w-[120px]"
+                    width={120}
+                    height={120}
+                />
+            </div>
+            <div className="text-center font-medium mb-5">
+                <Image
+                    src="/images/sosmed.png"
+                    alt="astra"
+                    className="w-[80%] mx-auto"
+                    width={279}
+                    height={279}
+                />
+            </div>
           </div>
         </SwiperSlide>
       </Swiper>
@@ -351,7 +380,7 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
             {profileData?.coins >= 1 && (
                 <Link
                     href="/prize"
-                    className="bg-blue-600 text-white text-sm font-bold px-6 py-3 mt-2 mb-[-1] rounded-tl-2xl rounded-br-2xl shadow text-center"
+                    className="bg-blue-600 text-white text-sm font-bold px-3 py-3 mt-2 mb-[-1] rounded-tl-2xl rounded-br-2xl shadow text-center"
                 >
                     Dapatkan Hadiah di Claw Machine!
                 </Link>
@@ -395,42 +424,53 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
         />
 
         {/* STAMP AREA */}
-        {confirmStamp && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-                <div className="bg-white rounded-xl shadow-xl text-center p-6 w-80">
-                    {stampStatus === 'loading' ? (
+        {/* {confirmStamp && ( */}
+            <div className={`fixed inset-0 flex items-center justify-center bg-black/90 ${confirmStamp ? 'z-[105] pointer-events-nonex' : 'z-[105] pointer-events-none opacity-0'}`}>
+
+                {stampStatus === 'loading' ? (
                     <>
-                        <h3 className="text-lg font-bold mb-2">Proses Stamp...</h3>
-                        <p className="text-sm text-gray-600">Mohon tunggu sebentar</p>
+                    <div className="absolute bg-white rounded-xl shadow-xl text-center p-6 w-80">
+                        <h3 className="text-lg font-bold mb-2">Proses Stamp</h3>
+                        <p className="text-sm text-gray-600">Mohon tunggu sebentar...</p>
+                    </div>
                     </>
-                    ) : stampStatus === 'success' ? (
+                ) : stampStatus === 'success' ? (
                     <>
-                        <h3 className="text-lg font-bold mb-2 text-green-600">Stamp Berhasil!</h3>
-                        <p className="text-sm text-gray-600">Terima kasih telah mengunjungi booth ini.</p>
+                    <div className="absolute text-center p-6 w-80">
+                        <div className={`block m-auto w-[160px] pointer-events-none`}>
+                            <Image src={'/images/stamp-berhasil.png'} width={180} height={180}  alt='Zirolu' className='w-full' priority />
+                        </div>
+                        <h3 className="text-lg font-bold mb-1 mt-2 text-white">Stamp Berhasil!</h3>
+                        <p className="text-sm text-white">Kumpulkan lagi stempel untuk dapatkan koin!</p>
+
+                        <p className="text-xs text-white mt-2">Tunggu sebentar...</p>
+                    </div>
                     </>
-                    ) : (
+                ) : (
                     <>
-                        <h3 className="text-lg font-bold mb-2">Konfirmasi Stamp</h3>
-                        <p className="text-sm text-gray-700 mb-4">Apakah kamu yakin ingin melakukan stamp di booth ini?</p>
-                        <div className="flex justify-center gap-4">
-                        <button
-                            className="px-4 py-2 bg-gray-300 rounded-md text-sm"
-                            onClick={() => setConfirmStamp(false)}
-                        >
-                            Batal
-                        </button>
-                        <button
-                            className="px-4 py-2 bg-green-600 text-white rounded-md text-sm"
-                            onClick={() => handleStamp(boothData[activeIndex].id)}
-                        >
-                            Ya, Stamp
-                        </button>
+                        <div className={`absolute m-auto w-[220px] pointer-events-none`}>
+                            <Image src={'/images/stamp-preview.png'} width={220} height={220}  alt='Zirolu' className='w-full' priority  onClick={() => handleStampTAP(boothData[activeIndex].id)} />
+                        </div>
+                        
+                        <div className='absolute bottom-0 pb-8 z-50'>
+                            <button
+                                className="bg-blue-600 text-white font-bold px-6 py-2 rounded-tl-3xl rounded-br-3xl flex items-center justify-center"
+                                onClick={() => setConfirmStamp(false)}
+                            >
+                                Nanti Lagi
+                            </button>
                         </div>
                     </>
-                    )}
-                </div>
+                )}
+
+
+                <canvas ref={canvasRef} className={`relative z-40 ${stampStatus === null ? '' : 'pointer-events-none'}`}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                />
             </div>
-        )}
+        {/* )} */}
         {/* <div className={`fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center flex-col ${startStamp ? 'z-[105] pointer-events-nonex' : 'z-[105] pointer-events-none opacity-0'}`}>
 
             <div className='absolute z-[50] mt-[-5rem] pointer-events-none'>
