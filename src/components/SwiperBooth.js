@@ -134,7 +134,7 @@ export default function SwiperBooth({ booths, profile, onQuestion }) {
 
         const thresholdXDistMin = 130;
         const thresholdXDistMax = 155;
-        const thresholdYDistMin = 90;
+        const thresholdYDistMin = 85;
         const thresholdYDistMax = 110;
 
         setTopLeftX(Math.round(topLeft.x))
